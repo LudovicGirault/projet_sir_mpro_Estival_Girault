@@ -10,8 +10,8 @@ E_init[1] = 1
 E_init[0] = N-E_init[1]
 
 
-beta = 1
-gamma = 0.4
+#beta = 1
+#gamma = 0.4
 
 #beta = 1.2
 #gamma = 0.2
@@ -60,8 +60,8 @@ def systeme(t, Y):
 	s = Y[0]
 	i = Y[1]
 	r = Y[2]
-	beta = 1
-	gamma = 0.4
+	beta = 1.2
+	gamma = 0.2
   
 	ds_dt = -beta*s*i
 	di_dt = beta*s*i - gamma*i
@@ -69,13 +69,11 @@ def systeme(t, Y):
 	
 	return [ds_dt,di_dt,dr_dt]
 
-solution = solve_ivp(systeme,[0,50],E_init/N)
+solution = solve_ivp(systeme,[0,50],E_init/N,max_step=0.1)
 s = solution.y[0]
 i = solution.y[1]
 r = solution.y[2]
-plt.plot(solution.t,solution.y[0],drawstyle='steps-post')
-plt.plot(solution.t,solution.y[1],drawstyle='steps-post')
-plt.plot(solution.t,solution.y[2],drawstyle='steps-post')
+plt.plot(solution.t,solution.y[0]*N,drawstyle='steps-post')
+plt.plot(solution.t,solution.y[1]*N,drawstyle='steps-post')
+plt.plot(solution.t,solution.y[2]*N,drawstyle='steps-post')
 plt.show()
-print(solution)
-
